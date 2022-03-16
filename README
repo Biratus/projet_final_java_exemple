@@ -1,0 +1,15 @@
+Voici un exemple de réponse aux besoins demandé pour le projet final
+
+La partie stagiaire/formateur n'est pas trop développé au niveau esthétique, seul les données sont affichés..
+Tout est gérable par un utilisateur gestionnaire
+
+Les solutions que j'ai utilisées dans ce projet sont mise à votre niveau. 
+Je pense surtout à la recherche qui du point de vue du code n'est vraiment pas belle du tout. 
+Pour améliorer ce genre de recherche vous pouvez allez voir du côté des "CriteriaBuilder".
+
+Pour l'authentification j'ai utilisé des 'interceptor' angular. (Je pense pas que vous l'ayez vu)
+Un interceptor va se lancer dès qu'une requète est envoyé de l'appli web, "intercepter" la requète, et la modifier. 
+Dans ce cas là, j'ajoute dans les headers des requètes le nom de l'utilisateur connecté afin de le récupérer côté back.
+
+Dans ce projet j'utilise 'Lombok', un plugin dont je vous laisserais le soin de l'installation (tutoriel à suivre). 
+Qui permet la génération des constructeurs/getter/setters automatiquement (Très pratique et utilisé fréquemment en situation réel).
