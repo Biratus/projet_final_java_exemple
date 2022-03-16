@@ -1,0 +1,83 @@
+<div class="container container-fluid" *ngIf="!inscriptionSuccess">
+    <div class="row">
+        <div class="col">
+            <h3 class="pageTitle">Formulaire pour intégrer une formation</h3>
+            <p>Veuillez remplir les informations suivantes concernant la formation que vous souhaitez intégrer ainsi que
+                quelques informations vous concernant.</p>
+        </div>
+    </div>
+    <div class="row flex-column">
+        <div class="col mt-2" *ngIf="errorAlertMsg">
+            <div class="alert alert-danger" role="alert">
+                {{errorAlertMsg}}
+            </div>
+        </div>
+        <form #registerForm="ngForm" (ngSubmit)="inscription(registerForm)">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="nom" class="form-label">Nom</label>
+                    <input type="text" #name="ngModel" name="nom" [(ngModel)]="personne.nom" class="form-control"
+                        id="nom" placeholder="..." required>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label for="prenom" class="form-label">Prenom</label>
+                    <input type="text" #name="ngModel" name="prenom" [(ngModel)]="personne.prenom" class="form-control"
+                        id="prenom" placeholder="..." required>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label for="mail" class="form-label">Adresse mail</label>
+                    <input type="mail" #name="ngModel" name="mail" [(ngModel)]="personne.mail" class="form-control"
+                        id="mail" placeholder="..." required>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Téléphone</label>
+                    <input type="tel" pattern="[0-9]{10}" #name="ngModel" name="phone" [(ngModel)]="personne.phone"
+                        class="form-control" id="phone" required>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label for="dateNaissance" class="form-label">Date de naissance</label>
+                    <input type="date" #name="ngModel" name="dateNaissance" [(ngModel)]="personne.dateNaissance"
+                        class="form-control" id="dateNaissance" required>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label for="ville" class="form-label">Lieu de résidence actuel</label>
+                    <input type="text" #name="ngModel" name="ville" [(ngModel)]="personne.ville" class="form-control"
+                        id="ville" required>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label for="libelleFormation" class="form-label">Quelle formation souhaitez-vous intégrer ?</label>
+                    <select class="form-control form-select form-select mb-3" aria-label=".form-select" name="formation"
+                        [(ngModel)]="personne.formationSouhaite" #name="ngModel" required>
+                        <option *ngFor="let f of formations" [ngValue]=f>{{f.libelle}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <button class="btn btn-success" type="submit">S'inscrire</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="container container-fluid" *ngIf="inscriptionSuccess">
+    <div class="alert alert-success" role="alert">
+        Votre inscription a bien été prise en compte.
+    </div>
+    Vous pouvez maintenant vous <a routerLink="/authentification">connecter</a> à l'application en utilisant les informations suivantes:
+    <br />
+    <b>Identifiant</b> : {{newPersonne.username}}<br />
+    <b>Mot de passe</b> : {{newPersonne.password}}<br />
+    Une fois connecté, vous pouvez vous rendre dans la page <i>Mon compte</i> via le menu à gauche pour changer votre mot
+    de passe.
+</div>

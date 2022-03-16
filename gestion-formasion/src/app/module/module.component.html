@@ -1,0 +1,85 @@
+<div class="container container-fluid" >
+    <h2 class="pageTitle">Modules</h2>
+
+    <div class="row" *ngIf="user.personne.type==Constant.TYPE_nouvelInscrit">    
+        <div class="col">
+           Vous êtes inscrit pour intégrer une formation <b>{{user.personne.formationSouhaite}}</b>.
+           <br/>
+        </div>
+    </div>
+    <div class="row flex-column" *ngIf="user.personne.type==Constant.TYPE_stagiaire">
+        <div class="col" *ngFor="let module of modules">
+            {{module.libelle}} 
+            <br>
+            De {{module.dateDebut | date:'dd/MM/YYYY'}} à {{module.dateFin | date:'dd/MM/YYYY'}}
+            <br>
+            Animé par {{module.formateur?.nom | uppercase}} {{module.formateur?.prenom}}
+        </div>
+    </div>
+    <div *ngIf="user.personne.type!=Constant.TYPE_stagiaire">
+        <div class="row flex-column">
+            <div class="col">
+                <h5 class="tabTitle">Recherche</h5>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <label for="libelle" class="form-label">Libellé</label>
+                        <input type="text" class="form-control" id="libelle" placeholder="..." [(ngModel)]="libelleSearch">
+                    </div>
+                    <div class="col">
+                        <label for="libelle" class="form-label">Filière</label>
+                        <select class="form-select form-select mb-3" aria-label=".form-select" [(ngModel)]="filiereSearch">
+                            <option selected value="">Recherche par filière</option>
+                            <option *ngFor="let f of filieres" value="{{f.id}}">{{f.libelle}}</option>
+                        </select>
+                    </div>
+                    <div class="col" *ngIf="user.personne.type==Constant.TYPE_gestionnaire">
+                        <label for="libelle" class="form-label">Formateur</label>
+                        <select class="form-select form-select mb-3" aria-label=".form-select"
+                            [(ngModel)]="formateurSearch">
+                            <option selected value="">Recherche par formateur</option>
+                            <option *ngFor="let f of formateurs" value="{{f.id}}">{{f.nom + f.prenom}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col mt-3">
+                <button class="btn btn-success" (click)="search()">Rechercher</button>
+            </div>
+        </div>
+        <ngb-alert *ngIf="error" type="danger" (closed)="closeAlert()">{{ error }}</ngb-alert>
+        <div class="col mt-3">
+            <h5 class="tabTitle">Résultats</h5>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Libelle</th>
+                    <th>Dates</th>
+                    <th>Formateur</th>
+                    <th>Filière</th>
+                    <th>Nombre de personnes</th>
+                    <th *ngIf="user.personne.type==Constant.TYPE_gestionnaire"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let module of modules">
+                    <td>
+                        <span *ngIf="user.personne.type!=Constant.TYPE_gestionnaire">{{module.libelle}}</span>
+                        <span *ngIf="user.personne.type==Constant.TYPE_gestionnaire">
+                            <a [routerLink]="['/gestion?tab=module']">{{module.libelle}}</a>
+                        </span>
+                    </td>
+                    <td>{{module.dateDebut}} - {{module.dateFin}}</td>
+                    <td>{{module.formateur?.nom}} {{module.formateur?.prenom}}</td>
+                    <td>{{module.filiere.libelle}}</td>
+                    <td>{{module.filiere.stagiaires.length}}</td>
+                    <td *ngIf="user.personne.type==Constant.TYPE_gestionnaire">
+                        <button class="btn btn-danger" (click)="deleteModule(module)">Supprimer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let item of items" [ngClass]="isItemActive(item)?'active':''">
+        <a [routerLink]="'/'+item.href">{{item.label}}</a>
+    </li>
+    <li class="list-group-item" (click)="logout()">Deconnexion</li>
+</ul>

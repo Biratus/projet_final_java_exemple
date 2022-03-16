@@ -1,0 +1,27 @@
+#title {
+    margin: 0 0.5em;
+  margin-bottom: 0px;
+    border-bottom: 1px solid gray;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+}
+#title .col {
+    background-color: #ebb634;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+#title h1 {
+    color: green;
+    font-weight: bold;
+    font-size: 6em;
+    letter-spacing: 10px;
+    font-family: 'Trebuchet MS', sans-serif;
+}
+#title img {
+    width:10%;
+    filter: invert(30%) sepia(92%) saturate(1369%) hue-rotate(92deg) brightness(88%) contrast(105%);
+}
+hr  {
+    margin-top:1em;
+    margin-bottom: 2em;
+}

@@ -1,0 +1,72 @@
+<div class="container container-fluid">
+    <div class="row">
+        <div class="col">
+            <h3 class="pageTitle">Mon compte</h3>
+        </div>
+    </div>
+    <div class="row flex-column" *ngIf="personne">
+        <div class="col">
+            <span class="font-weight-bold">{{personne.nom}} {{personne.prenom}}</span> (id:<span class="font-weight-bold">{{ personne.user.username}}</span>)
+        </div>
+        <div class="col">
+            Inscrit depuis le {{personne.dateInscription | date:'dd/MM/YYY'}} en tant que {{typePersonne}}
+        </div>
+        <div class="col">
+            <span *ngIf="personne.type==Constant.TYPE_nouvelInscrit">Vous souhaitez intégrer la formation
+                {{personne.formationSouhaite.libelle}}</span>
+            <span *ngIf="personne.type==Constant.TYPE_stagiaire">Vous suivez la formation
+                {{personne.formationSouhaite.libelle}} dans la filière {{personne.filiere.libelle}}</span>
+            <span *ngIf="personne.type==Constant.TYPE_formateur">Vous êtes formateur au sein de Forma'sion</span>
+        </div>
+        <div class="col mt-4">
+            <h5 class="tabTitle">Informations</h5>
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col">Téléphone: {{personne.phone}}</div>
+                <div class="col">E-mail: {{personne.mail}}</div>
+            </div>
+        </div>
+        <div class="col">
+            Né le {{personne.dateNaissance | date:'fullDate'}}
+        </div>
+
+        <div class="col">
+            Vous habitez actuellement à {{personne.ville}}
+        </div>
+        <div class="col mt-4">
+            <h5 class="tabTitle">Changer de mot de passe</h5>
+            <hr>
+        </div>
+        <form #changePwdForm="ngForm" (ngSubmit)="changePassword(changePwdForm)">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="oldPassword" class="form-label">Mot de passe actuel</label>
+                    <input type="password" #name="ngModel" name="oldPassword" [(ngModel)]="newPersonne.oldPassword" class="form-control"
+                        id="oldPassword" required>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label for="newPassword" class="form-label">Nouveau mot de passe</label>
+                    <input type="password" #name="ngModel" name="newPassword" [(ngModel)]="newPersonne.newPassword" class="form-control"
+                        id="newPassword" required>
+                </div>
+            </div>
+            <div class="col">
+                <button class="btn btn-success" type="submit">Changer mon mot de passe</button>
+            </div>
+        </form>
+        <div class="col mt-2" *ngIf="errorAlertMsg">
+            <div class="alert alert-danger" role="alert">
+                {{errorAlertMsg}}
+            </div>
+        </div>
+        <div class="col mt-2" *ngIf="successAlertMsg">
+            <div class="alert alert-success" role="alert">
+                {{successAlertMsg}}
+            </div>
+        </div>
+
+    </div>
+</div>

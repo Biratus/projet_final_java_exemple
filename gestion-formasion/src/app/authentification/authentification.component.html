@@ -1,0 +1,39 @@
+
+<div class="container container-fluid">
+    <div class="row">
+        <div class="col text-center specialText">Veuillez vous connecter pour accéder à l'application
+        </div>
+    </div>
+    <form #userAuthentification="ngForm" (ngSubmit)="onSubmit(userAuthentification)">
+        <div class="row justify-content-center mt-3">
+            <div class="col-6">
+                <div>
+                    <label for="username" class="form-label">Nom d'utilisateur</label>
+                    <input [(ngModel)]="user.username" #name="ngModel" name="username" type="text" class="form-control"
+                        id="username" placeholder="Votre nom d'utilisateur">
+                </div>
+                <div class="mt-4">
+                    <label for="password" class="form-label">Mot de passe</label>
+                    <input [(ngModel)]="user.password" #name="ngModel" name="password" type="password"
+                        class="form-control" id="password" placeholder="Votre mot de passe">
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-6 mt-3"><button type="submit" class="btn btn-success">Me connecter</button></div>
+        </div>
+    </form>
+    <div class="row mt-2" *ngIf="errorMessage">
+        <div class="col">
+            <div class="alert alert-danger" role="alert">
+                {{errorMessage}}
+              </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col text-center mt-2 specialText">
+            Vous pouvez aussi vous inscrire à une formation par ici => <a routerLink="/inscription">M'inscrire</a>
+        </div>
+    </div>
+
+</div>

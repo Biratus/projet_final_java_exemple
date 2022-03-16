@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #f0e2d8;
+}
+
+label {
+    font-weight: 500;
+}
+
+.pageTitle {
+    text-align:center;
+    color:green;
+    border-bottom:1px solid darkgreen
+}
+
+.nav-tabs {
+    border-color:darkgreen;
+}
+.nav-tabs .nav-link {
+    color:green;
+}
+.nav-tabs .nav-link:hover {
+    border-color:darkgreen;
+    background-color: rgb(201, 250, 201);
+}
+.nav-tabs .nav-link.active {
+    background-color: lightgreen;
+    border-color:darkgreen;
+}
+
+.tabTitle {
+    margin:1em 0.5em;
+    color:green;
+    border-bottom:1px solid darkgreen
+}

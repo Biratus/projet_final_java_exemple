@@ -1,0 +1,53 @@
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs justify-content-center">
+    <li [ngbNavItem]="1">
+        <a ngbNavLink>Formations</a>
+        <ng-template ngbNavContent>
+            <app-gestion-formation-tab (addedEvent)="loadStagiaires()"></app-gestion-formation-tab>
+        </ng-template>
+    </li>
+    <li [ngbNavItem]="2">
+        <a ngbNavLink>Filières</a>
+        <ng-template ngbNavContent>
+            <app-gestion-filiere-tab (addedEvent)="loadStagiaires()"></app-gestion-filiere-tab>
+        </ng-template>
+    </li>
+
+    <li [ngbNavItem]="3">
+        <a ngbNavLink>Modules</a>
+        <ng-template ngbNavContent>
+            <app-gestion-module-tab></app-gestion-module-tab>
+        </ng-template>
+    </li>
+    <li [ngbNavItem]="4">
+        <a ngbNavLink>Stagiaires</a>
+        <ng-template ngbNavContent>
+            <p>Ci-dessous la liste des stagiaires qui ne sont pas encore affecté à une filière.</p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nom Prénom</th>
+                        <th>Date d'inscription</th>
+                        <th>Formation souhaitée</th>
+                        <th>Filières</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let personne of stagiaires">
+                        <td>{{personne.nom}} {{personne.prenom}}</td>
+                        <td>{{personne.dateInscription}}</td>
+                        <td>{{personne.formationSouhaite.libelle}}</td>
+                        <td>
+                            <select class="form-control form-select form-select mb-3" aria-label=".form-select"
+                                name="formateurSearch" [(ngModel)]="stagiaireFiliereToAdd[personne.id]" #name="ngModel">
+                                <option selected value="">Inscrire sur une filière</option>
+                                <option *ngFor="let f of filieresFor(personne.formationSouhaite.libelle)" value="{{f.id}}">{{f.libelle}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class="btn btn-success" (click)="addStagiaireToFilieres()">Inscrire les stagiaires</button>
+        </ng-template>
+    </li>
+</ul>
+<div [ngbNavOutlet]="nav" class="mt-2"></div>

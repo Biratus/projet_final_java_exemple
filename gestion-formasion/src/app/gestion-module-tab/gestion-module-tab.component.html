@@ -1,0 +1,63 @@
+<div class="container container-fluid">
+    <div class="row flex-column">
+        <div class="col mt-2" *ngIf="errorAlertMsg">
+            <div class="alert alert-danger" role="alert">
+                {{errorAlertMsg}}
+            </div>
+        </div>
+        <div class="col">
+            <h3 class="tabTitle">Créer un module</h3>
+        </div>
+        <form #moduleForm="ngForm" (ngSubmit)="createModule(moduleForm)">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="libelleModule" class="form-label">Libellé du module</label>
+                    <input type="text" #name="ngModel" name="libelle" [(ngModel)]="module.libelle" class="form-control"
+                        id="libelleModule" placeholder="..." required>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label for="filiere" class="form-label">Filière</label>
+                    <select class="form-select form-select mb-3" aria-label=".form-select" name="filiere"
+                        [(ngModel)]="module.filiere" #name="ngModel" required>
+                        <option *ngFor="let f of filieres" [ngValue]="f">{{f.libelle}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="dateDebut" class="form-label">Date de début</label>
+                        <input #name="ngModel" name="dateDebut" type="date" [(ngModel)]="module.dateDebut"
+                            class="form-control" id="dateDebut" required>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="dateFin" class="form-label">Date de fin</label>
+                        <input #name="ngModel" name="dateFin" type="date" [(ngModel)]="module.dateFin"
+                            class="form-control" id="dateFin" required>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="formateur" class="form-label">Formateur</label>
+                        <select class="form-select form-select mb-3" aria-label=".form-select" name="formateur"
+                            [(ngModel)]="module.formateur" #name="ngModel">
+                            <option *ngFor="let f of formateurs" [ngValue]="f">{{f.nom}} {{f.prenom}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <button class="btn btn-success" type="submit">Créer un module</button>
+            </div>
+        </form>
+        <div class="col mt-2" *ngIf="successAlertMsg">
+            <div class="alert alert-success" role="alert">
+                {{successAlertMsg}}
+            </div>
+        </div>
+    </div>
+</div>

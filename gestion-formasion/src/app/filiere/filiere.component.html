@@ -1,0 +1,91 @@
+<div class="container container-fluid">
+    <div class="row">
+        <div class="col">
+            <h2 class="pageTitle">Filières</h2>
+        </div>
+    </div>
+    <div class="row flex-column">
+        <div class="col">
+            <h5 class="tabTitle">Recherche</h5>
+        </div>
+        <form #searchForm="ngForm" (ngSubmit)="search()">
+            <div class="col">
+                <div class="row">
+                    <div class="col from-group">
+                        <label for="libelle" class="form-label">Libellé</label>
+                        <input type="text" class="form-control" id="libelle" placeholder="..."
+                            name="libelleSearch" [(ngModel)]="libelleSearch" #name="ngModel">
+                    </div>
+                    <div class="col form-group" *ngIf="typeUser==Constant.TYPE_gestionnaire">
+                        <label for="libelle" class="form-label">Formateur</label>
+                        <select class="form-select form-select mb-3" aria-label=".form-select"
+                            name="formateurSearch" [(ngModel)]="formateurSearch" #name="ngModel">
+                            <option selected value="">Recherche par formateur</option>
+                            <option *ngFor="let f of formateurs" value="{{f.id}}">{{f.nom + f.prenom}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-check from-group">
+                    <input class="form-check-input" type="radio" name="filiereStatus" value="all" id="all"
+                     [(ngModel)]="filiereStatus" #name="ngModel" checked>
+                    <label class="form-check-label" for="all">
+                      Toutes
+                    </label>
+                  </div>
+                  <div class="form-check from-group">
+                    <input class="form-check-input" type="radio" name="filiereStatus" value="active" id="active"
+                     [(ngModel)]="filiereStatus" #name="ngModel">
+                    <label class="form-check-label" for="active">
+                      Actives
+                    </label>
+                  </div>
+                  <div class="form-check from-group">
+                    <input class="form-check-input" type="radio" name="filiereStatus" value="inactive" id="inactive"
+                     [(ngModel)]="filiereStatus" #name="ngModel">
+                    <label class="form-check-label" for="inactive">
+                      Inactives
+                    </label>
+                  </div>
+            </div>
+            <div class="col mt-3">
+                <button class="btn btn-success" type="submit">Rechercher</button>
+            </div>
+        </form>
+    </div>
+    <ngb-alert *ngIf="error" type="danger" (closed)="closeAlert()">{{ error }}</ngb-alert>
+    <div class="col mt-3">
+        <h5 class="tabTitle">Résultats</h5>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Libelle</th>
+                <th>Dates</th>
+                <th>Nombre de personnes</th>
+                <th>Nombre de modules</th>
+                <th *ngIf="typeUser==Constant.TYPE_gestionnaire"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let filiere of filieres">
+                <td>
+                    <span *ngIf="typeUser!=Constant.TYPE_gestionnaire">{{filiere.libelle}}</span>
+                    <span *ngIf="typeUser==Constant.TYPE_gestionnaire">
+                        <a [routerLink]="['/gestion']" [queryParams]="{tab:'module'}" >{{filiere.libelle}}</a>
+                    </span>
+                </td>
+                <td>{{filiere.dateDebut}} - {{filiere.dateFin}}</td>
+                <td>{{filiere.stagiaires.length}}</td>
+                <td>
+                    <a [routerLink]="['/modules']" [queryParams]="{filiere_id:filiere.id}" > 
+                        {{filiere.modules.length}}</a>
+                    </td>
+                <td *ngIf="typeUser==Constant.TYPE_gestionnaire">
+                    <button class="btn btn-danger" (click)="deleteFiliere(filiere)">Supprimer</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
